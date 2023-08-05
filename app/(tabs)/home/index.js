@@ -376,9 +376,7 @@ const Tab1Index = () => {
               })}
             </>
           ) : (
-            <>
-              <Text>False</Text>
-            </>
+            <></>
           )}
         </View>
         <View>
