@@ -580,10 +580,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   textcontainer: {
-    flex: 3,
-    alignItems: "center",
+    flex: 6,
     marginTop: "12%",
-    marginLeft: "2%",
+    marginLeft: "3%",
   },
   textuser: {
     fontSize: 18,

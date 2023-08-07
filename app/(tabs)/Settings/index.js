@@ -246,6 +246,7 @@ const Tab2Index = () => {
               <Text style={styles.sectionheadertext}>Change Password</Text>
               <View style={{ width: "90%", alignSelf: "center" }}>
                 <TextInput
+                  style={{ backgroundColor: "#fff" }}
                   mode="outlined"
                   setValue={setOldPass}
                   label="Old password"
@@ -266,6 +267,7 @@ const Tab2Index = () => {
                 style={{ width: "90%", alignSelf: "center", marginTop: "3%" }}
               >
                 <TextInput
+                  style={{ backgroundColor: "#fff" }}
                   mode="outlined"
                   setValue={setNewPassword}
                   label="New password"

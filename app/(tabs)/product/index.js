@@ -1,4 +1,5 @@
-import { Link, Redirect, Stack, useRouter } from "expo-router";
+import { Redirect, Stack, useRouter } from "expo-router";
+import { Link } from "expo-router";
 import {
   View,
   Text,
@@ -24,6 +25,7 @@ import { Entypo } from "@expo/vector-icons";
 import * as Device from "expo-device";
 import * as Network from "expo-network";
 import { TouchableOpacity } from "react-native";
+import { clockRunning } from "react-native-reanimated";
 
 const Tab5Index = () => {
   const router = useRouter();
@@ -33,7 +35,7 @@ const Tab5Index = () => {
   const [quantity, setQuantity] = useState(1);
   const [subTotals, setSubTotals] = useState(0);
   const [showNo, setShowNo] = useState(false);
-  const [showGtotalCheckOut, setShowGtotalCheckOut] = useState(false);
+  const [showGtotalCheckOut, setShowGtotalCheckOut] = useState(true);
   const [deliverPickup, setDeliverPickup] = useState(false);
   const [checked, setChecked] = React.useState("first");
   const [decrementDisable, setDisableDecrement] = useState(false);
@@ -311,13 +313,14 @@ const Tab5Index = () => {
                 </Text>
                 <Button
                   onPress={() => {
-                    router.replace("../store");
+                    router.push("/(tabs)/store/entrymodal");
                   }}
                   style={{ marginTop: "2%", backgroundColor: "#0A6EBD" }}
                   mode="contained"
                 >
                   Shop Now
                 </Button>
+                {/* <Link href="">back</Link> */}
               </View>
             </>
           ) : (
@@ -514,6 +517,13 @@ const Tab5Index = () => {
                     Billing Details
                   </Text>
                 </View>
+                <View style={{ marginLeft: "3%" }}>
+                  <Text
+                    style={{ fontSize: 18, fontWeight: "400", color: "#444" }}
+                  >
+                    Name
+                  </Text>
+                </View>
                 <TextInput
                   editable={false}
                   onChangeText={(text) => setFullname(text)}
@@ -528,6 +538,13 @@ const Tab5Index = () => {
                   mode="outlined"
                   theme={{ colors: { text: "white", primary: "black" } }}
                 />
+                <View style={{ marginLeft: "3%" }}>
+                  <Text
+                    style={{ fontSize: 18, fontWeight: "400", color: "#444" }}
+                  >
+                    Contact
+                  </Text>
+                </View>
                 <TextInput
                   editable={false}
                   onChangeText={(text) => setContactNo(text)}

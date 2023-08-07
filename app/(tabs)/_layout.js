@@ -40,7 +40,7 @@ const TabsLayout = () => {
       <Tabs.Screen
         name="store"
         options={{
-          title: "Store",
+          title: "store",
           tabBarIcon: () => <Entypo name="shop" size={26} color="grey" />,
         }}
       />

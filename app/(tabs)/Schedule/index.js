@@ -210,28 +210,19 @@ const index = () => {
             </View>
             <View
               style={{
-                borderRadius: 5,
-                width: "100%",
-                alignSelf: "center",
-                marginTop: "2%",
+                marginVertical: "2%",
+                backgroundColor: "#fff",
+                paddingVertical: "2%",
               }}
             >
-              <View
+              <ScrollView
+                horizontal={true}
                 style={{
                   flexDirection: "row",
                   backgroundColor: "white",
-                  borderRadius: 5,
-                  elevation: 10,
-                  paddingVertical: "2%",
-                  marginBottom: "5%",
-                  justifyContent: "space-evenly",
                 }}
               >
-                <View
-                  style={{
-                    justifyContent: "center",
-                  }}
-                >
+                <View style={{ paddingRight: "3%", width: 150 }}>
                   <Button
                     style={{
                       backgroundColor: "white",
@@ -241,19 +232,32 @@ const index = () => {
                     mode="outlined"
                     icon="plus"
                     textColor="black"
-                    size={24}
+                    size={28}
                     onPress={() => {
                       router.push("/(tabs)/Schedule/reservation");
                     }}
                   >
-                    Sched
+                    Schedules
                   </Button>
                 </View>
-                <View
-                  style={{
-                    justifyContent: "center",
-                  }}
-                >
+                <View style={{ paddingRight: "3%", width: 170 }}>
+                  <Button
+                    style={{
+                      backgroundColor: "white",
+                      borderWidth: 1,
+                      borderColor: "grey",
+                    }}
+                    mode="outlined"
+                    textColor="black"
+                    backgroundColor="white"
+                    icon="calendar"
+                    size={24}
+                    onPress={() => setOpenCalendar(true)}
+                  >
+                    {dateFIlter}
+                  </Button>
+                </View>
+                <View style={{ paddingRight: "3%" }}>
                   <SelectDropdown
                     data={setterFilterOptions}
                     onSelect={(selectedItem, index) => {
@@ -284,28 +288,16 @@ const index = () => {
                     rowTextStyle={styles.dropdown1RowTxtStyle}
                   />
                 </View>
-                <View
-                  style={{
-                    justifyContent: "center",
-                  }}
-                >
-                  <Button
-                    style={{
-                      backgroundColor: "white",
-                      borderWidth: 1,
-                      borderColor: "grey",
-                    }}
-                    mode="outlined"
-                    textColor="black"
-                    backgroundColor="white"
-                    icon="calendar"
-                    size={24}
-                    onPress={() => setOpenCalendar(true)}
-                  >
-                    {dateFIlter}
-                  </Button>
-                </View>
-              </View>
+              </ScrollView>
+            </View>
+            <View
+              style={{
+                borderRadius: 5,
+                width: "100%",
+                alignSelf: "center",
+                marginTop: "2%",
+              }}
+            >
               {showSchedules ? (
                 <>
                   <View
@@ -555,7 +547,7 @@ const styles = StyleSheet.create({
   },
 
   dropdown1BtnStyle: {
-    width: 134,
+    width: 150,
     height: 43,
     backgroundColor: "#FFF",
     borderRadius: 20,
@@ -571,6 +563,7 @@ const styles = StyleSheet.create({
   dropdown1DropdownStyle: {
     backgroundColor: "white",
     borderRadius: 5,
+    width: 150,
   },
 
   dropdown1RowTxtStyle: { color: "#444", textAlign: "left", fontWeight: "500" },

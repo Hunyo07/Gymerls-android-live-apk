@@ -91,7 +91,7 @@ export default function profile() {
             <Entypo name="chevron-small-left" size={45} />
           </TouchableOpacity>
         </View>
-        {!isPresented && <Link href="../">Dismiss</Link>}
+
         <View style={{}}>
           {personInfo.map((personinfo) => {
             return (

@@ -12,6 +12,7 @@ const CustomAddToCart = ({ text, onPress }) => {
   const [cartItem, setCartItem] = useState([]);
   const [username, setUsername] = useState("");
   const [pressed, setPressed] = useState(false);
+  const [AddT0Cart, setAddtoCart] = useState("ADD TO CART");
 
   useEffect(() => {
     storeDataUser(function (callback) {
@@ -28,7 +29,6 @@ const CustomAddToCart = ({ text, onPress }) => {
         .then((res) => res.json())
         .then((result) => {
           setCartItem(result);
-          // console.log(result);
         });
       // console.log(cartItem);
     });
@@ -44,44 +44,37 @@ const CustomAddToCart = ({ text, onPress }) => {
       return false;
     }
   };
-  // console.log(cartItem);
-  const addToCart = () => {
-    setIsDisabled(true);
-    // console.log("na press padin");
-  };
-
+  const addToCart = () => {};
   return (
     <View>
       <View style={styles.root}>
         <Pressable
-          // style={{
-          //   backgroundColor: "blue",
-          //   borderRadius: 2,
-          //   alignItems: "center",
-          // }}
-          onPressOut={() => {
+          onPressIn={() => {
             setPressed(true);
+            setIsDisabled(true);
+            setTimeout(() => {
+              setPressed(false);
+              setIsDisabled(false);
+            }, 5000);
             addToCart();
           }}
           disabled={isDisable}
           onPress={onPress}
           testOnly_pressed={pressed}
-          // setPressed={pressed}
-          // theme={{ colors: { text: "white", primary: "black" } }}
           style={({ pressed }) => [
             {
-              backgroundColor: pressed ? "#9AC5F4" : "#0A6EBD",
+              backgroundColor: pressed ? "#444" : "#0A6EBD",
             },
             {
               borderRadius: 3,
             },
             styles.wrapperCustom,
           ]}
-          // style={styles.textcontainer}
         >
           {({ pressed }) => (
             <Text style={styles.text}>
-              {pressed ? "ALREADY IN CART" : "ADD TO CART"}
+              {pressed ? "ADDED TO CART" : "ADD TO CART"}
+              {/* {AddT0Cart} */}
             </Text>
           )}
         </Pressable>
