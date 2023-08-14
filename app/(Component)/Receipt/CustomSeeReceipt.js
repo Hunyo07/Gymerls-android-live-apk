@@ -1,11 +1,17 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { useState } from "react";
+import { useRouter, Stack } from "expo-router";
+import { Card } from "react-native-paper";
+
 const CustomSeeReceipt = ({ Status, receipt }) => {
+  const router = useRouter();
   const [showReceipt, setShowReceipt] = useState(false);
 
   return (
     <View>
+      <Stack.Screen options={{ headerShown: false }} />
+
       <TouchableOpacity
         onPress={() => {
           if (showReceipt == false) {
@@ -30,12 +36,12 @@ const CustomSeeReceipt = ({ Status, receipt }) => {
                     style={{
                       marginVertical: "3%",
                       padding: "2%",
+                      alignItems: "center",
                     }}
                   >
-                    <Image
-                      source={receipt}
-                      style={{ width: "80%", height: 200 }}
-                    />
+                    <Card style={{ width: "100%" }}>
+                      <Card.Cover source={{ uri: receipt }} />
+                    </Card>
                   </View>
                 </>
               ) : (

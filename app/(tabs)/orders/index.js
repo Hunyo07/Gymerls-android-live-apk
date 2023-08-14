@@ -17,7 +17,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import SelectDropdown from "react-native-select-dropdown";
-import CustomSeeReceipt from "../../(Component)/CustomSeeReceipt";
+import CustomSeeReceipt from "../../(Component)/Receipt/CustomSeeReceipt";
 
 const { width } = Dimensions.get("window");
 
@@ -244,27 +244,9 @@ const orders = () => {
                           </Text>
                           <View>
                             <CustomSeeReceipt
-                              receipt={{ uri: trans.receipt_url }}
+                              receipt={trans.receipt_url}
                               Status={trans.status}
                             />
-                            {/* {showReceipt ? (
-                              <>
-                                {trans.status == "Completed" ? (
-                                  <>
-                                    <Image
-                                      source={{ uri: trans.receipt_url }}
-                                      style={{ width: "50%", height: 100 }}
-                                    />
-                                  </>
-                                ) : (
-                                  <>
-                                    <Text>No receipt available</Text>
-                                  </>
-                                )}
-                              </>
-                            ) : (
-                              <></>
-                            )} */}
                           </View>
                         </View>
                         <View
@@ -275,12 +257,21 @@ const orders = () => {
                           <View
                             style={[
                               styles.status,
+
                               trans.status === "Pending"
                                 ? styles.pending
+                                : trans.status === "Out-Of-Stock"
+                                ? styles.outofstock
                                 : styles.confirmed,
                             ]}
                           >
-                            <Text style={{ fontWeight: 600, color: "white" }}>
+                            <Text
+                              style={{
+                                fontWeight: 600,
+                                color: "white",
+                                fontSize: 12,
+                              }}
+                            >
                               {trans.status}
                             </Text>
                           </View>
@@ -350,6 +341,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#2e7d32",
     borderRadius: 5,
   },
+  outofstock: {
+    padding: "4%",
+    backgroundColor: "#d32f2f",
+    borderRadius: 5,
+  },
+
   dropdown1BtnStyle: {
     width: 134,
     height: 43,
