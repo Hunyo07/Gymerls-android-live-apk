@@ -52,6 +52,8 @@ const Tab5Index = () => {
   const [loadOnAdd, setLoadOnAdd] = useState([]);
   const [ipAddress, setIpAdress] = useState("");
   const [personInfo, setPersonInfo] = useState([]);
+  const [totalQuantity, setTotalQuantity] = useState(1);
+
   const getIpAddress = async (ipAddress) => {
     try {
       const ipAdd = await Network.getIpAddressAsync();
@@ -63,6 +65,14 @@ const Tab5Index = () => {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const mappingTotalQuantity = () => {
+    let t = 0;
+    cart.map(({ quantity }) => (t = t + quantity));
+    setTotalQuantity(t);
+
+    return t;
   };
 
   const userLogsOnPlaceOrder = (username) => {
@@ -163,6 +173,7 @@ const Tab5Index = () => {
       })
         .then((res) => res.json())
         .then((result) => {
+          mappingTotalQuantity();
           setLoadOnAdd(result);
           setCart(result);
           findValue(result);
@@ -237,7 +248,7 @@ const Tab5Index = () => {
       deleteCartItemAfterCheckout(post.id);
     }
     for (let item of cart) {
-      newCart.push(item.product_name);
+      newCart.push(item.quantity + " X " + item.product_name);
     }
 
     var newItem = JSON.stringify(newCart).replace(/\[|\]/g, "");
@@ -256,6 +267,7 @@ const Tab5Index = () => {
         method: paymentMethod,
         address: personInfo[0].address,
         items: replaceItem,
+        total_quantity: totalQuantity,
         total: grandTotal,
         status: "Pending",
         receipt_url: "image.jpg",
@@ -345,6 +357,7 @@ const Tab5Index = () => {
                 };
 
                 const incrementQuantity = (id) => {
+                  console.log(totalQuantity);
                   cart.map((item) => {
                     if (id === item.id) {
                       setQuantity(item.quantity++);
@@ -355,11 +368,13 @@ const Tab5Index = () => {
                         setDisableDecrement(false);
                       }
                       mappingPrice();
+                      mappingTotalQuantity();
                     }
                   });
                 };
 
                 const decrementQuantity = (id) => {
+                  console.log(totalQuantity);
                   cart.map((item) => {
                     if (id === item.id) {
                       setQuantity(item.quantity--);
@@ -370,6 +385,7 @@ const Tab5Index = () => {
                         setDisableDecrement(true);
                       }
                       mappingPrice();
+                      mappingTotalQuantity();
                     }
                   });
                 };
@@ -448,6 +464,8 @@ const Tab5Index = () => {
                   zIndex: 2,
                 }}
                 onPress={() => {
+                  console.log(totalQuantity);
+                  mappingTotalQuantity();
                   setShowCheckOut(true);
                 }}
               >

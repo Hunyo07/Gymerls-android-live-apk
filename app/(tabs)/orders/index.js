@@ -7,7 +7,7 @@ import {
   Dimensions,
 } from "react-native";
 import React, { useRef } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, Image } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthStore } from "../../../store";
 import { useState, useEffect } from "react";
@@ -17,7 +17,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import SelectDropdown from "react-native-select-dropdown";
+import CustomSeeReceipt from "../../(Component)/CustomSeeReceipt";
+
 const { width } = Dimensions.get("window");
+
 const orders = () => {
   const [username, setUsername] = useState("");
   const [transaction, setTransaction] = useState([]);
@@ -26,6 +29,7 @@ const orders = () => {
   const [cities, setCities] = useState([]);
   const [refreshing, setRefreshing] = React.useState(false);
   const [filteredTransaction, setFilteredTransaction] = useState([]);
+  const [showReceipt, setShowReceipt] = useState(false);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -72,11 +76,9 @@ const orders = () => {
               setTransaction(data);
             }
           }
-
-          // console.log(data);
         });
     });
-  }, [transaction, refreshing]);
+  }, [refreshing, transaction]);
   const storeDataPass = async (callback) => {
     AuthStore.update((s) => {
       s.isLoggedIn = false;
@@ -199,6 +201,7 @@ const orders = () => {
                           >
                             {trans.items}
                           </Text>
+
                           <Text
                             style={{
                               marginVertical: "1%",
@@ -239,11 +242,34 @@ const orders = () => {
                             <Entypo name="address" size={16} color="#444" />{" "}
                             {trans.address}
                           </Text>
+                          <View>
+                            <CustomSeeReceipt
+                              receipt={{ uri: trans.receipt_url }}
+                              Status={trans.status}
+                            />
+                            {/* {showReceipt ? (
+                              <>
+                                {trans.status == "Completed" ? (
+                                  <>
+                                    <Image
+                                      source={{ uri: trans.receipt_url }}
+                                      style={{ width: "50%", height: 100 }}
+                                    />
+                                  </>
+                                ) : (
+                                  <>
+                                    <Text>No receipt available</Text>
+                                  </>
+                                )}
+                              </>
+                            ) : (
+                              <></>
+                            )} */}
+                          </View>
                         </View>
                         <View
                           style={{
                             flex: 1,
-                            // alignItems: "center",
                           }}
                         >
                           <View
@@ -267,6 +293,16 @@ const orders = () => {
                             }}
                           >
                             {formatDate(trans.transaction_date)}
+                          </Text>
+                          <Text
+                            style={{
+                              fontWeight: 400,
+                              marginVertical: "1%",
+                              fontSize: 13,
+                              alignSelf: "center",
+                            }}
+                          >
+                            Products - {trans.total_quantity}
                           </Text>
                         </View>
                       </View>
