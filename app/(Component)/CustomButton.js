@@ -18,12 +18,12 @@ const styles = StyleSheet.create({
   },
   textcontainer: {
     width: "90%",
-    backgroundColor: "#1976D2",
     alignItems: "center",
     borderRadius: 5,
     marginVertical: 5,
     alignSelf: "center",
     marginVertical: 20,
+    backgroundColor: "#ad0000",
   },
   text: {
     padding: 12,
